@@ -1,9 +1,9 @@
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, PostForm
 from .models import Category, Posts
 from django.views import View
 
@@ -35,3 +35,30 @@ class SignUpView(View):
 class CustomLoginView(LoginView):
     form_class = LoginForm
     template_name = 'registration/login.html'
+
+def create(request):
+    form = PostForm()
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.author = request.user
+            obj.save()
+        return redirect('/')
+    context = {
+        'form' : form
+    }
+    return render(request, 'create.html', context)
+
+def post_update(request, pk):
+    obj = get_object_or_404(Posts, pk=pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/home/')
+    else:
+        form = PostForm(instance=obj)
+    
+    return render(request, 'update.html', {'form': form})
+        

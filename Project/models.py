@@ -27,5 +27,3 @@ class Posts(models.Model):
         verbose_name = 'Поста'
         verbose_name_plural = 'Посты'
 
-    def get_absolute_url(self):
-        return reverse

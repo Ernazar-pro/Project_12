@@ -3,42 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Posts</title>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-    <div class="header">
-        <h2>Posts</h2>
-        <a class="signin" href="{% url 'login' %}"><h2>Вход</h2></a>
-    </div>
+    <header class="header">
+        <a href="" class="logo">Logo</a>
+        <nav class="navbar">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Gallery</a>
+            <a href="#">Contact</a> 
+            <a href="#">Sign In</a>
+        </nav>
+    </header>
+    
 </body>
-<style>
-    body {
-        background-image: url(../images/bg.jpg);
-    }
-    .header h2 {
-        width: 126px;
-        height: 58px;
-        font-size: 36px;
-        margin-left: 70px;
-        margin-top: 30px;
-        text-decoration-line: underline;
-        color: #FFF;
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 400;
-}
-    .header .signin h2 {
-        color: #FFF;
-        font-family: Inter;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 400;
-        text-decoration: none;
-        margin-top: -88px;
-        margin-left: 1350px;
-} 
-    .header .signin h2:hover {
-        color: rgb(7, 21, 21);
-    }
-</style>
 </html>
