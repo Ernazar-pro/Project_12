@@ -1,11 +1,12 @@
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView
 from .forms import LoginForm, SignUpForm, PostForm
 from .models import Category, Posts
 from django.views import View
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -61,4 +62,24 @@ def post_update(request, pk):
         form = PostForm(instance=obj)
     
     return render(request, 'update.html', {'form': form})
-        
+
+def account(request, pk):
+    account = User.objects.get(username=request.user, id=pk,)
+    context = {
+        'account' : account,
+    }
+    return render(request, 'profile.html', context)
+
+def delete(request, pk):
+    post = Posts.objects.filter(id=pk)
+    post.delete()
+    return redirect('/')
+
+def post_detail(request, pk):
+    post = Posts.objects.get(id=pk)
+    category = Category.objects.all()
+    context = {
+        'post': post,
+        'category': category,
+    }
+    return render(request, 'detail.html', context)

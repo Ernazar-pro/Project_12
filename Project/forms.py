@@ -10,11 +10,12 @@ class LoginForm(AuthenticationForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 class SignUpForm(UserCreationForm):
+    fullname = forms.CharField()
     email = forms.EmailField()
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('fullname','username', 'email', 'password1', 'password2')
 
 class PostForm(ModelForm):
     class Meta:
@@ -24,4 +25,5 @@ class PostForm(ModelForm):
             'description',
             'category',
             'image',
+            'author',
         ]
